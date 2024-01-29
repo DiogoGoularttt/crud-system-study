@@ -3,21 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Candidato;
+use App\Http\Controllers\CandidatoController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/cadastrar-candidato', function (Request $informacoes) {  //CADASTRAR
-    Candidato::create([
-        'nome' => $informacoes -> nome_candidato,
-        'email' => $informacoes -> email_candidato,
-        'telefone' => $informacoes -> telefone_candidato,
-        'cidade' => $informacoes -> cidade_candidato
-    ]);
-    echo "Cadastro realizado com sucesso!";
-});
+Route::post('/cadastrar-candidato', [CandidatoController::class, "cadastrarCandidato"]);  //CADASTRAR
 
 Route::get('/mostrar-candidato/{id_candidato}', function ($id_candidato) {  //MOSTRAR
     $candidato = Candidato::findOrFail($id_candidato);
